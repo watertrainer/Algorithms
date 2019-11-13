@@ -1,5 +1,4 @@
-package SelectionSort;
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Arrays;
 
@@ -13,6 +12,9 @@ public class SelectionSort {
 			@Override
 			public void paintComponent(Graphics g) {
 				for(int i = 0;i<ar.length;i++) {
+					g.setColor(Color.green);
+					g.fillRect(5*i, 0, 5, ar[i]);
+					g.setColor(Color.black);
 					g.drawRect(5*i, 0, 5, ar[i]);
 				}
 			}
