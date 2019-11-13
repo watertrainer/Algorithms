@@ -1,1 +1,10 @@
 /bin/
+/.idea/
+.classpath
+.project
+Algorithms.eml
+Algorithms.iml
+/Sorting/Sorting.iml
+/Sorting/Klasse1/Klasse1.iml
+/Sorting/Klasse2/Klasse2.iml
+/Sorting/Klasse3/Klasse3.iml
