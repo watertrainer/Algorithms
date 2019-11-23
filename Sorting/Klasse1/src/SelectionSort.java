@@ -24,6 +24,7 @@ public class SelectionSort {
 		f.setContentPane(p);
 		f.setSize(500, 500);
 		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int s = 0;
 		int u = ar.length;
 		while(u>0) {
