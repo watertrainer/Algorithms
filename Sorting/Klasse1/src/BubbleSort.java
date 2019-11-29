@@ -8,8 +8,8 @@ public class BubbleSort {
 
 
     public void sortieren(){
-        for(int j = 0; j <= arr.length-2; j++) {
-            for (int i = 0; i <= arr.length - 2; i++) {
+        for(int j = 0; j < arr.length - 1; j++) {
+            for (int i = 0; i < arr.length - 1; i++) {
 
                 if (arr[i] > arr[i + 1]) {
                     save = arr[i];
