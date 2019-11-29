@@ -24,24 +24,26 @@ public class SelectionSort {
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int s = 0;
-		int u = ar.length;
-		while(u>0) {
-			for(int i = s+1;i<ar.length;i++) {
-				if(ar[s]>ar[i]) {
-					int t = ar[s];
-					ar[s] = ar[i];
-					ar[i] = t;
+		while(s<ar.length) {
+			int smallest = Integer.MAX_VALUE;
+			int smallestIndex = 0;
+			for(int i = s;i<ar.length;i++) {
+				if (ar[i] < smallest) {
+					smallest = ar[i];
+					smallestIndex = i;
 				}
-				
 			}
-			u--;
-			s++;
+			ar[smallestIndex] = ar[s];
+			ar[s] = smallest;
 			f.repaint();
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+
+			s++;
+
 		}
 		return ar;
 	}
