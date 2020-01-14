@@ -36,7 +36,6 @@ public class Quicksort {
                                 int k1 = ar[j];
                                 ar[j] = ar[i];
                                 ar[i] = k1;
-                                System.out.println(Arrays.toString(ar));
                                 continue o;
                             }
                         }
