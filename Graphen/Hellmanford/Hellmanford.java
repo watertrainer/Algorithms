@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hellmanford{
-    ArrayList<Node> nodes = new ArrayList<Node>(20);
+    ArrayList<Node> nodes = new ArrayList<>(20);
 
-    List<Edge> edges = new ArrayList<Edge>(50);
+    List<Edge> edges = new ArrayList<>(50);
     boolean nodeMode = true;
     boolean strg;
     Node moveing;

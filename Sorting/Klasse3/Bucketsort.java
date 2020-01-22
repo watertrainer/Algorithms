@@ -1,8 +1,12 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Bucketsort {
+
+    static ArrayList<Integer>[] buk;
+    static int drarIn,buIn = 0;
     public static void main(String[] args){
         int ar[] = {1,2,3,4,5,6,2,50,24,47,9};
         sort(ar,5);
@@ -14,28 +18,33 @@ public class Bucketsort {
      * @param k Die Anzahl an Buckets die verwendet werden soll
      */
     public static void sort(int[] ar, int k){
-        ArrayList<Integer>[] buk = new ArrayList[k];
+        buk = new ArrayList[k];
         for(int i = 0;i<buk.length;i++){
             buk[i] = new ArrayList<>();
         }
         int M = maxIn(ar); //Der Maximale Wert
         for(int i = 0;i<ar.length;i++){
             //Jedes Element wird seinem Bucket hinzugefügt.
-            //Wir verwenden gleichmäßige Buckets, das heißt, dass
+            //Wir verwenden gleichmäßige Buckets, das heißt, dass man erst das Verhätlnis berechnet, wie viel "Prozent" von
+            //der Max value das Element hat und dann wird das mit der Anzahl an Buckets multipliziert, wodurch der Index
+            //im Buk Array gefunden wird
             buk[(int) Math.floor((k-1)*ar[i]/M)].add(ar[i]);
+            GUI.sleep(2);
+            GUI.repaint();
         }
 
-        System.out.println(Arrays.toString(buk));
-        //Index im Ar, um die Buckets wieder zusammenzuführen
         int arIn = 0;
-        //Für jedem Bucket
         for(int i = 0;i<k;i++){
-            //Hier wird der Bucket mit Insertion Sort sortiert und dann auch direkt darüber iteriert (for-each-Schleife)
-            for(int j:insertionSort(toArray(buk[i]))){
+            //Die Buckets werden in das Array Kopiert
+            for(int j:toArray(buk[i])){
                 ar[arIn] = j;
                 arIn++;
+
             };
         }
+        GUI.bucket = false;
+        insertionSort(ar);
+        GUI.repaint();
         System.out.println(Arrays.toString(ar));
     }
 
@@ -53,8 +62,10 @@ public class Bucketsort {
             int j = i;
             while (j > 0 && sortieren[j - 1] > temp) {
                 sortieren[j] = sortieren[j - 1];
+                GUI.repaint();
                 j--;
             }
+            GUI.sleep(2);
             sortieren[j] = temp;
         }
         return sortieren;
@@ -68,5 +79,14 @@ public class Bucketsort {
             }
         }
         return M;
+    }
+    public static void draw(Graphics g){
+        int x = 0;
+        for(int i = 0;i<buk.length;i++){
+            for(int j = 0;j<buk[i].size();j++){
+                g.drawLine(x,1000,x,1000-buk[i].get(j));
+                x++;
+            }
+        }
     }
 }

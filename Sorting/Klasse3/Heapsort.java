@@ -1,11 +1,17 @@
+import javax.swing.*;
+import java.awt.*;
+
 public class Heapsort {
 
     public static int[] sort(int[] arr){
 
         int n = arr.length;
 
-        for(int i = n / 2 - 1; i >= 0; i--){
+        for(int i = (n / 2) - 1; i >= 0; i--){
+
             heapen(arr, n, i);
+            GUI.sleep(1);
+            GUI.repaint();
         }
 
         for(int i = n - 1; i >= 0; i--){
@@ -14,6 +20,8 @@ public class Heapsort {
             arr[i] = save;
 
             heapen(arr, i, 0);
+            GUI.repaint();
+            GUI.sleep(2);
         }
 
         return arr;
@@ -38,26 +46,14 @@ public class Heapsort {
             arr[i] = arr[largest];
             arr[largest] = save;
 
+            GUI.repaint();
             heapen(arr, sizeH, largest);
+            GUI.sleep(2);
         }
 
 
     }
 
-    public static void main(String[] args){
 
-        int[] unsortiert = new int[1000];
-        int obergrenze = 1000;
-
-        for(int i = 0; i < unsortiert.length; i++){
-            unsortiert[i] = (int) (Math.random()*obergrenze);
-        }
-
-        int[] sortiert = sort(unsortiert);
-        for(int i=0; i < sortiert.length; i++){
-            System.out.print(sortiert[i] + ", ");
-        }
-
-    }
 }
 
