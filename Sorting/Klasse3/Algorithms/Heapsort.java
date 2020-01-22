@@ -1,5 +1,6 @@
-import javax.swing.*;
-import java.awt.*;
+package Algorithms;
+
+import src.GUI;
 
 public class Heapsort {
 

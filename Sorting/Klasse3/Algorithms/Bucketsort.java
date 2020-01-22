@@ -1,7 +1,9 @@
+package Algorithms;
+
+import src.GUI;
+
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Bucketsort {
 
@@ -13,7 +15,7 @@ public class Bucketsort {
     }
 
     /**
-     * Sortiert ein Array nach Bucketsort
+     * Sortiert ein Array nach Algorithms.Bucketsort
      * @param ar Das zu sortierende Array
      * @param k Die Anzahl an Buckets die verwendet werden soll
      */
@@ -45,7 +47,6 @@ public class Bucketsort {
         GUI.bucket = false;
         insertionSort(ar);
         GUI.repaint();
-        System.out.println(Arrays.toString(ar));
     }
 
     public static int[] toArray(ArrayList<Integer> ar){

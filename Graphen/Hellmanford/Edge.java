@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 public class Edge {
@@ -6,13 +8,19 @@ public class Edge {
     Node start;
     Node end;
     boolean started;
+    boolean isUsed;
     int used;
     Hellmanford h;
+
+
+
     public Edge(int capacity, Node start, Node end,Hellmanford hellmanford) {
         this.capacity = capacity;
         this.start = start;
         this.end = end;
         h = hellmanford;
+
+
     }
 
     public boolean canHoldCapacity(int flow){
@@ -34,16 +42,23 @@ public class Edge {
 
         return distance(x,y,start.x+t*(end.x-start.x),start.y+t*(end.y-start.y));
     }
+    public void changeDirection(){
+        Node s = start;
+        start = end;
+        end = s;
 
+    }
     public double distance(double x1,double y1,double x2,double y2){
         return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2);
     }
     public void draw(Graphics g){
 
-        g.drawLine(start.x,start.y,end.x,end.y);
         String toDraw = String.valueOf(capacity);
         if(started) toDraw = used+"/"+capacity;
         g.drawChars(toDraw.toCharArray(),0,toDraw.toCharArray().length,(start.x+end.x)/2,(start.y+end.y)/2);
+
+        Arrow.drawArrow((Graphics2D)g,this);
+        g.drawLine(start.x,start.y,end.x,end.y);
 
     }
     void remove(){

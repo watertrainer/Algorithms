@@ -4,10 +4,11 @@ import java.util.ArrayList;
 public class Node {
     int x;
     int y;
-    int used;
-    boolean started;
     ArrayList<Edge> edges;
     Hellmanford h;
+    @org.jetbrains.annotations.Nullable
+    Color toRender;
+    boolean used;
     public Node(int x,int y,Hellmanford hellmanford){
         this.x = x;
         this.y = y;
@@ -24,15 +25,24 @@ public class Node {
 
     public void draw(Graphics g)
     {
+        if(toRender!=null){
+            g.setColor(toRender);
 
-        g.fillOval(x-5,y-5,10,10);
+            g.fillOval(x-5,y-5,10,10);
+            g.setColor(Color.black);
+        }
+        else
+            g.fillOval(x-5,y-5,10,10);
+
     }
 
     public void createEdge(Node n){
         Edge e = new Edge(1,this,n,h);
-        this.edges.add(e);
-        n.edges.add(e);
-        h.edges.add(e);
+        if(!edges.contains(e) && !e.start.equals(e.end)) {
+            edges.add(e);
+            n.edges.add(e);
+            h.edges.add(e);
+        }
     }
 
     public void removeEdge(Edge edge){
@@ -42,7 +52,7 @@ public class Node {
     }
 
     public void clearEdges(){
-       while(edges.size()>0){
+       while(!edges.isEmpty()){
             edges.get(0).remove();
         }
     }

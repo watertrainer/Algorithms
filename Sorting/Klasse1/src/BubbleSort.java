@@ -1,14 +1,15 @@
-import java.util.Scanner;
+package src;
 
+import src.GUI;
 
 public class BubbleSort {
 
-    private int save;
+    private static int save;
 
     int[] arr = {10, 5, 7, 16, 3, 1, 4, 8, 9, 2};
 
 
-    public void sortieren(){
+    public static void sortieren(int[] arr){
         for(int j = 0; j < arr.length - 1; j++) {
             for (int i = 0; i < arr.length - 1; i++) {
 
@@ -16,11 +17,13 @@ public class BubbleSort {
                     save = arr[i];
                     arr[i] = arr[i + 1];
                     arr[i + 1] = save;
+                    GUI.repaint();
+                    GUI.sleep(1);
                 }
 
             }
         }
-        ausgabe();
+        //ausgabe();
     }
     public void ausgabe(){
         for(int i = 0; i <= arr.length-1; i++) {
@@ -32,7 +35,7 @@ public class BubbleSort {
 
     public static void main(String[] args){
         BubbleSort main = new BubbleSort();
-        main.sortieren();
+        //main.sortieren();
     }
 
 }
