@@ -2,11 +2,13 @@ package src.gui.Algorithms;
 
 import src.GUI;
 
-public class BubbleSortSave {
+public class BubbleSortSave extends SortingAlgorithm{
 
 
-    static boolean running = false;
-    public static void sort(int[] arr){
+    public BubbleSortSave(){
+        info = "BubbleSort:5ms after each complete Iteration";
+    }
+    public void sort(int[] arr){
         boolean changed = true;
         int save;
         while (changed) {
@@ -26,4 +28,6 @@ public class BubbleSortSave {
             GUI.sleep(5);
         }
     }
+
+
 }

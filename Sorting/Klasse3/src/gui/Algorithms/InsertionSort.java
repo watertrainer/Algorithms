@@ -2,12 +2,14 @@ package src.gui.Algorithms;
 
 import src.GUI;
 
-public class InsertionSort {
+public class InsertionSort extends SortingAlgorithm{
 
-	static boolean running = false;
+	public InsertionSort(){
+		info = "InsertionSort:4ms after each inserted Element";
+	}
 
 
-public static int[] sort(int[] sortieren) {
+	public void sort(int[] sortieren) {
 	running = true;
 	int temp;
 	for (int i = 1; i < sortieren.length; i++) {
@@ -23,7 +25,7 @@ public static int[] sort(int[] sortieren) {
 		sortieren[j] = temp;
 	}
 	running = false;
-	return sortieren;
 }
+
 
 }

@@ -4,17 +4,25 @@ import src.GUI;
 
 import java.util.Arrays;
 
-public class Quicksort {
-    static int wait = 4;
-    static int count = 0;
-    static boolean running = false;
+public class Quicksort extends SortingAlgorithm{
+     int wait = 4;
+     int count = 0;
 
-    public static void sort(int[] ar){
+     public Quicksort(){
+         super();
+         info = "Quicksort: 4ms delay per swap";
+     }
+
+
+
+    public void sort(int[] ar){
         running = true;
         sortRec(ar,0,ar.length-1);
         running = false;
     }
-    public static int[] sortRec(int[] ar,int links, int rechts){
+
+
+    public int[] sortRec(int[] ar,int links, int rechts){
         if(links<rechts){
             int t = partition(ar,links,rechts);
 
@@ -24,7 +32,7 @@ public class Quicksort {
         return ar;
     }
 
-    public static int partition(int[] ar,int links, int rechts){
+    public int partition(int[] ar,int links, int rechts){
         int po = ar[rechts];
         int i = 0;
         int j = 1;

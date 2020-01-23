@@ -5,19 +5,20 @@ import src.GUI;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Bucketsort {
+public class Bucketsort extends SortingAlgorithm{
+    ArrayList<Integer>[] buk;
+    int drarIn,buIn = 0;
+    public boolean insertion;
 
-    static boolean running = false;
-    static ArrayList<Integer>[] buk;
-    static int drarIn,buIn = 0;
-
-
+    public Bucketsort(){
+        info = "Bucketsort: 2ms for each inserted Element in a Bucket and in InsertionSort";
+    }
     /**
      * Sortiert ein Array nach src.gui.Algorithms.Bucketsort
      * @param ar Das zu sortierende Array
      * @param k Die Anzahl an Buckets die verwendet werden soll
      */
-    public static void sort(int[] ar, int k){
+    public void sort(int[] ar, int k){
         running = true;
         buk = new ArrayList[k];
         for(int i = 0;i<buk.length;i++){
@@ -43,20 +44,22 @@ public class Bucketsort {
 
             };
         }
-        GUI.bucket = false;
+        insertion = true;
         insertionSort(ar);
+        insertion = false;
         GUI.repaint();
         running = false;
     }
 
-    public static int[] toArray(ArrayList<Integer> ar){
+    public int[] toArray(ArrayList<Integer> ar){
         int[] re = new int[ar.size()];
         for(int i = 0;i<ar.size();i++){
             re[i]=ar.get(i);
         }
         return re;
     }
-    public static int[] insertionSort(int[] sortieren) {
+
+    public int[] insertionSort(int[] sortieren) {
         int temp;
         for (int i = 1; i < sortieren.length; i++) {
             temp = sortieren[i];
@@ -72,7 +75,7 @@ public class Bucketsort {
         return sortieren;
     }
 
-    public static int maxIn(int ar[]){
+    public int maxIn(int ar[]){
         int M = ar[0];
         for(int i = 1;i<ar.length;i++){
             if(ar[i]>M){
@@ -81,13 +84,24 @@ public class Bucketsort {
         }
         return M;
     }
-    public static void draw(Graphics g){
-        int x = 0;
-        for(int i = 0;i<buk.length;i++){
-            for(int j = 0;j<buk[i].size();j++){
-                g.drawLine(x,GUI.maxValue+50,x,GUI.maxValue+50-buk[i].get(j));
-                x++;
+    public void draw(Graphics g){
+        if(insertion){
+
+        }else {
+            int x = 0;
+            for (int i = 0; i < buk.length; i++) {
+                for (int j = 0; j < buk[i].size(); j++) {
+                    g.drawLine(x, GUI.maxValue + 50, x, GUI.maxValue + 50 - buk[i].get(j));
+                    x++;
+                }
             }
         }
     }
+
+    @Override
+    public void sort(int[] ar) {
+        sort(ar,10);
+    }
+
+
 }

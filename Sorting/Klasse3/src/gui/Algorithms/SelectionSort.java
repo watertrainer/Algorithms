@@ -6,10 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class SelectionSort {
+public class SelectionSort extends SortingAlgorithm{
 
-    static boolean running = false;
-	public static int[] sort(int[] ar) {
+	public void sort(int[] ar) {
         running = true;
 		int s = 0;
 		while(s<ar.length) {
@@ -30,8 +29,9 @@ public class SelectionSort {
 
 		}
 		running = false;
-		return ar;
 	}
-	
+	public SelectionSort(){
+		info = "SelectionSort: 2ms after each swap";
+	}
 
 }
