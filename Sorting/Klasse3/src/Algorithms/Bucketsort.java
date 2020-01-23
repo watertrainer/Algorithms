@@ -1,4 +1,4 @@
-package Algorithms;
+package src.Algorithms;
 
 import src.GUI;
 
@@ -9,13 +9,10 @@ public class Bucketsort {
 
     static ArrayList<Integer>[] buk;
     static int drarIn,buIn = 0;
-    public static void main(String[] args){
-        int ar[] = {1,2,3,4,5,6,2,50,24,47,9};
-        sort(ar,5);
-    }
+
 
     /**
-     * Sortiert ein Array nach Algorithms.Bucketsort
+     * Sortiert ein Array nach src.gui.Algorithms.Bucketsort
      * @param ar Das zu sortierende Array
      * @param k Die Anzahl an Buckets die verwendet werden soll
      */
@@ -31,8 +28,6 @@ public class Bucketsort {
             //der Max value das Element hat und dann wird das mit der Anzahl an Buckets multipliziert, wodurch der Index
             //im Buk Array gefunden wird
             buk[(int) Math.floor((k-1)*ar[i]/M)].add(ar[i]);
-            GUI.sleep(2);
-            GUI.repaint();
         }
 
         int arIn = 0;
@@ -44,9 +39,7 @@ public class Bucketsort {
 
             };
         }
-        GUI.bucket = false;
         insertionSort(ar);
-        GUI.repaint();
     }
 
     public static int[] toArray(ArrayList<Integer> ar){
@@ -63,10 +56,8 @@ public class Bucketsort {
             int j = i;
             while (j > 0 && sortieren[j - 1] > temp) {
                 sortieren[j] = sortieren[j - 1];
-                GUI.repaint();
                 j--;
             }
-            GUI.sleep(2);
             sortieren[j] = temp;
         }
         return sortieren;
@@ -81,13 +72,5 @@ public class Bucketsort {
         }
         return M;
     }
-    public static void draw(Graphics g){
-        int x = 0;
-        for(int i = 0;i<buk.length;i++){
-            for(int j = 0;j<buk[i].size();j++){
-                g.drawLine(x,1000,x,1000-buk[i].get(j));
-                x++;
-            }
-        }
-    }
+
 }

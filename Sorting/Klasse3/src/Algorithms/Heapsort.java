@@ -1,4 +1,4 @@
-package Algorithms;
+package src.Algorithms;
 
 import src.GUI;
 
@@ -11,8 +11,7 @@ public class Heapsort {
         for(int i = (n / 2) - 1; i >= 0; i--){
 
             heapen(arr, n, i);
-            GUI.sleep(1);
-            GUI.repaint();
+
         }
 
         for(int i = n - 1; i >= 0; i--){
@@ -21,8 +20,7 @@ public class Heapsort {
             arr[i] = save;
 
             heapen(arr, i, 0);
-            GUI.repaint();
-            GUI.sleep(2);
+
         }
 
         return arr;
@@ -47,9 +45,9 @@ public class Heapsort {
             arr[i] = arr[largest];
             arr[largest] = save;
 
-            GUI.repaint();
+
             heapen(arr, sizeH, largest);
-            GUI.sleep(2);
+
         }
 
 

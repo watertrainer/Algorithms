@@ -1,8 +1,11 @@
-package src;
+package src.gui.Algorithms;
+
+import src.GUI;
 
 public class BubbleSortSave {
 
 
+    static boolean running = false;
     public static void sort(int[] arr){
         boolean changed = true;
         int save;
