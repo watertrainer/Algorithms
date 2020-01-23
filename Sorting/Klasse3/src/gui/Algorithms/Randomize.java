@@ -15,6 +15,8 @@ public class Randomize extends SortingAlgorithm {
             if(!fast)
                 GUI.sleep(2);
         }
+
+        super.sort(ar);
     }
 
 }

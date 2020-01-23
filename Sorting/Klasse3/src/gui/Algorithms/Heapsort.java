@@ -6,8 +6,9 @@ public class Heapsort extends SortingAlgorithm{
 
     public Heapsort(){
         info = "Heapsort: 2ms for every swap";
+        wait = 2;
     }
-    public void sort(int[] arr){
+    public synchronized void sort(int[] arr){
 
         int n = arr.length;
 
@@ -17,38 +18,35 @@ public class Heapsort extends SortingAlgorithm{
         }
 
         for(int i = n - 1; i >= 0; i--){
-            int save = arr[0];
-            arr[0] = arr[i];
-            arr[i] = save;
-            GUI.sleep(2);
-            GUI.repaint();
+            swap(0,i,arr);
             heapen(arr, i, 0);
 
         }
 
+        super.sort(arr);
+
     }
 
-    public void heapen(int[] arr, int sizeH, int i){
+    public synchronized void heapen(int[] arr, int sizeH, int i){
 
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
         if(left < sizeH && arr[left] > arr[largest]){
+            accesses+=2;
+            comparisons+=2;
             largest = left;
         }
 
         if(right < sizeH && arr[right] > arr[largest]){
+            accesses+=2;
+            comparisons+=2;
             largest = right;
         }
 
         if(largest != i){
-            int save = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = save;
-
-            GUI.repaint();
-            GUI.sleep(2);
+            swap(i,largest,arr);
             heapen(arr, sizeH, largest);
 
         }

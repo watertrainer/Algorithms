@@ -31,6 +31,7 @@ public class Bucketsort extends SortingAlgorithm{
             //der Max value das Element hat und dann wird das mit der Anzahl an Buckets multipliziert, wodurch der Index
             //im Buk Array gefunden wird
             buk[(int) Math.floor((k-1)*ar[i]/M)].add(ar[i]);
+            accesses++;
             GUI.sleep(2);
             GUI.repaint();
         }
@@ -49,6 +50,8 @@ public class Bucketsort extends SortingAlgorithm{
         insertion = false;
         GUI.repaint();
         running = false;
+
+        super.sort(ar);
     }
 
     public int[] toArray(ArrayList<Integer> ar){
@@ -63,9 +66,12 @@ public class Bucketsort extends SortingAlgorithm{
         int temp;
         for (int i = 1; i < sortieren.length; i++) {
             temp = sortieren[i];
+            accesses++;
             int j = i;
             while (j > 0 && sortieren[j - 1] > temp) {
                 sortieren[j] = sortieren[j - 1];
+                accesses+=2;
+                comparisons++;
                 GUI.repaint();
                 j--;
             }

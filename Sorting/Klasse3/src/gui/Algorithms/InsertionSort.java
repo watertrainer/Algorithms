@@ -9,14 +9,18 @@ public class InsertionSort extends SortingAlgorithm{
 	}
 
 
-	public void sort(int[] sortieren) {
+	public synchronized void sort(int[] sortieren) {
 	running = true;
 	int temp;
 	for (int i = 1; i < sortieren.length; i++) {
 		temp = sortieren[i];
+		accesses++;
 		int j = i;
 		while (j > 0 && sortieren[j - 1] > temp) {
+
 			sortieren[j] = sortieren[j - 1];
+			accesses+=2;
+			comparisons++;
 			j--;
 		}
 
@@ -25,6 +29,8 @@ public class InsertionSort extends SortingAlgorithm{
 		sortieren[j] = temp;
 	}
 	running = false;
+
+		super.sort(sortieren);
 }
 
 

@@ -16,7 +16,7 @@ public class GUI {
     public static boolean allowMultiple, changeOnResize = false;
     public static boolean running = false;
     static JFrame f;
-    static int[] arr;
+    static volatile int[] arr;
     public static int arrLength;
     static @Nullable Bucketsort bucket;
     static ArrayList<SortingAlgorithm> algos;
@@ -44,6 +44,7 @@ public class GUI {
             public void paint(Graphics g) {
 
                 super.paint(g);
+                updateText();
                 if (bucket == null || bucket.insertion) {
                     for (int i = 0; i < arr.length; i++) {
                         g.setColor(Color.black);
@@ -70,10 +71,8 @@ public class GUI {
 
                     Randomize r = new Randomize();
                     algos.add(r);
-                    updateText();
                     r.sort(arr);
                     algos.remove(r);
-                    updateText();
                 }
             };
             t.start();
@@ -90,10 +89,8 @@ public class GUI {
 
                 BubbleSortSave b = new BubbleSortSave();
                 algos.add(b);
-                updateText();
                 b.sort(arr);
                 algos.remove(b);
-                updateText();
 
             });
             t.start();
@@ -110,10 +107,8 @@ public class GUI {
 
                 SelectionSort s = new SelectionSort();
                 algos.add(s);
-                updateText();
                 s.sort(arr);
                 algos.remove(s);
-                updateText();
             });
             t.start();
         });
@@ -128,11 +123,9 @@ public class GUI {
                 }
                 InsertionSort i = new InsertionSort();
                 algos.add(i);
-                updateText();
                 i.sort(arr);
                 algos.remove(i);
 
-                updateText();
             });
             t.start();
         });
@@ -147,11 +140,9 @@ public class GUI {
                 }
                 Quicksort q = new Quicksort();
                 algos.add(q);
-                updateText();
                 q.sort(arr);
                 algos.remove(q);
 
-                updateText();
             });
             t.start();
         });
@@ -166,11 +157,9 @@ public class GUI {
                 }
                 Heapsort h = new Heapsort();
                 algos.add(h);
-                updateText();
                 h.sort(arr);
                 algos.remove(h);
 
-                updateText();
             });
             t.start();
         });
@@ -179,6 +168,7 @@ public class GUI {
 
         JButton bucket = new JButton("BucketSort");
         bucket.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        Bucketsort bucketsort = null;
         bucket.addActionListener(e -> {
             if (GUI.bucket == null) {
                 GUI.bucket = new Bucketsort();
@@ -187,14 +177,13 @@ public class GUI {
                         return;
                     }
                     algos.add(GUI.bucket);
-                    updateText();
                     GUI.bucket.sort(arr);
-                    GUI.bucket = null;
                     algos.remove(GUI.bucket);
+                    GUI.bucket = null;
 
-                    updateText();
                 });
                 t.start();
+
             }
         });
         buttonPane.add(bucket);
@@ -263,11 +252,9 @@ public class GUI {
         arr = new int[1000];
         init();
         Randomize r = new Randomize();
-        GUI.algos.add(r);
-        GUI.updateText();
+        algos.add(r);
         r.sort(arr);
         algos.remove(r);
-        GUI.updateText();
     }
     public static void fastRandomize(int[] ar){
         for(int i = 0; i < GUI.arrLength; i++){
