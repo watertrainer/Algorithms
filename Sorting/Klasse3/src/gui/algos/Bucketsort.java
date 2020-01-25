@@ -229,7 +229,7 @@ public class Bucketsort extends SortingAlgorithm {
         for (int i = 0; i < buk.length; i++) {
             buk[i] = new ArrayList<>(5);
         }
-        GUI.sleep(5000);
+        GUI.sleep(8000);
         explanation2.setText("");
         explanation.setText("Copying each Element in its corresponding bucket");
         f.repaint();
@@ -275,6 +275,7 @@ public class Bucketsort extends SortingAlgorithm {
             ar[j] = temp;
 
         }
+        spIn = -1;
         explanation.setText("Finished!");
         f.repaint();
     }

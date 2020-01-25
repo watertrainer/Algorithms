@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.font.TextAttribute;
+import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.Arrays;
 
@@ -124,7 +125,7 @@ public class Radixsort extends SortingAlgorithm {
             ar[i] = (int) (Math.random() * maxValue);
         }
         f = new JFrame();
-        f.setSize(800, 800);
+        f.setSize(800, 600);
 
         count = new int[10];
         JPanel content = new JPanel() {
@@ -153,17 +154,18 @@ public class Radixsort extends SortingAlgorithm {
                         }
                         g.setColor(Color.BLACK);
                         AttributedString re = new AttributedString(String.valueOf(darr[i]));
-
-                        re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.PLAIN, 20));
                         if (darr[i] >= 10) {
-
                             re.addAttribute(TextAttribute.FOREGROUND, Color.red, 2 - (digit + 1), 2 - (digit));
-                            g.drawString(re.getIterator(), x - 5, ymax - 20);
+                            re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.BOLD, 20));
                         } else {
 
                             re.addAttribute(TextAttribute.FOREGROUND, Color.red, 0, 1);
-                            g.drawString(re.getIterator(), x, ymax - 20);
+                            re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.BOLD, 20), 0, 1);
 
+                        }if (darr[i] >= 10) {
+                            g.drawString(re.getIterator(), x - 5, ymax - 20);
+                        } else {
+                            g.drawString(re.getIterator(), x, ymax - 20);
                         }
                     } else {
                         if (darr[i] >= 10) {
@@ -188,16 +190,19 @@ public class Radixsort extends SortingAlgorithm {
                 g.drawLine(xmax, ymax - 50, xmin, ymax - 50);
                 g.drawLine(xmax, ymax, xmax, ymax - 50);
                 placePerNumber = (xmax - xmin) / count.length;
+                g.drawString("Count:", xmin - 100, ymax - 25);
                 for (int i = 0; i < count.length; i++) {
                     g.drawLine(xmin + (i) * placePerNumber, ymax - 50, xmin + (i) * placePerNumber, ymax);
                     int x = xmin + (i + 1) * placePerNumber - placePerNumber / 3 - placePerNumber / 4;
                     if (i == spInCo) {
-                        String toDraw = String.valueOf(i);
+                        String toDraw = String.valueOf(count[i]);
+                        AttributedString re = new AttributedString(toDraw);
+                        re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.BOLD, 20));
                         g.setColor(Color.red);
                         if (count[i] >= 10) {
-                            g.drawString(String.valueOf(count[i]), x - 5, ymax - 20);
+                            g.drawString(re.getIterator(), x - 5, ymax - 20);
                         } else {
-                            g.drawString(String.valueOf(count[i]), x, ymax - 20);
+                            g.drawString(re.getIterator(), x, ymax - 20);
                         }
                         g.setColor(Color.black);
                     } else {
@@ -210,11 +215,13 @@ public class Radixsort extends SortingAlgorithm {
                     }
                     if (i == spInCoKe) {
                         g.setColor(Color.red);
-
+                        g.setFont(new Font("Calibri", Font.BOLD, 20));
                         g.drawString(String.valueOf(i), x, ymax - 70);
+                        g.setFont(new Font("Calibri", Font.PLAIN, 20));
                         g.setColor(Color.BLACK);
                     } else {
 
+                        g.setFont(new Font("Calibri", Font.PLAIN, 20));
                         g.drawString(String.valueOf(i), x, ymax - 70);
                     }
                 }
@@ -225,6 +232,8 @@ public class Radixsort extends SortingAlgorithm {
                 g.drawLine(xmax, ymax - 50, xmin, ymax - 50);
                 g.drawLine(xmax, ymax, xmax, ymax - 50);
                 placePerNumber = (xmax - xmin) / ar.length;
+
+                g.drawString("Input:", xmin + 250, ymax - 50 - 25);
                 for (int i = 0; i < ar.length; i++) {
                     g.drawLine(xmin + (i) * placePerNumber, ymax - 50, xmin + (i) * placePerNumber, ymax);
                     int x = xmin + (i + 1) * placePerNumber - placePerNumber / 3 - placePerNumber / 4;
@@ -233,20 +242,24 @@ public class Radixsort extends SortingAlgorithm {
                         StringBuilder toDraw = new StringBuilder(String.valueOf(ar[i]));
                         if (ar[i] < 10) {
 
-                            for(int j = 0;j<digit;j++)
+                            for (int j = 0; j < digit; j++)
                                 toDraw.insert(0, "0");
                         }
                         AttributedString re = new AttributedString(toDraw.toString());
 
                         re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.PLAIN, 20));
                         if (ar[i] >= 10) {
-
                             re.addAttribute(TextAttribute.FOREGROUND, Color.red, 2 - (digit + 1), 2 - (digit));
-                            g.drawString(re.getIterator(), x - 5*digit, ymax - 20);
+                            re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.BOLD, 20), 2 - (digit + 1), 2 - digit);
                         } else {
-
                             re.addAttribute(TextAttribute.FOREGROUND, Color.red, 0, 1);
-                            g.drawString(re.getIterator(), x-5*digit, ymax - 20);
+                            re.addAttribute(TextAttribute.FONT, new Font("Calibri", Font.BOLD, 20), 0, 1);
+
+                        }
+                        if (ar[i] >= 10) {
+                            g.drawString(re.getIterator(), x - 5 , ymax - 20);
+                        } else {
+                            g.drawString(re.getIterator(), x - 5 * digit, ymax - 20);
 
                         }
                     } else {
@@ -254,9 +267,9 @@ public class Radixsort extends SortingAlgorithm {
                             g.drawString(String.valueOf(ar[i]), x - 5, ymax - 20);
                         else {
                             StringBuilder toDraw = new StringBuilder(String.valueOf(ar[i]));
-                            for(int j = 0;j<digit;j++)
+                            for (int j = 0; j < digit; j++)
                                 toDraw.insert(0, "0");
-                            g.drawString(toDraw.toString(), x-5*digit, ymax - 20);
+                            g.drawString(toDraw.toString(), x - 5 * digit, ymax - 20);
                         }
                     }
                 }
@@ -264,10 +277,13 @@ public class Radixsort extends SortingAlgorithm {
             }
         };
 
-        JLabel explain = new JLabel("Numbers over Elements of middle Array represent the key whose number is stored there");
+        JLabel explain = new JLabel("Each index in count array counts,  how often this index exists in the input array");
+        JLabel explain2 = new JLabel("(as a Digit)");
         f.repaint();
         content.add(explain);
+        content.add(explain2);
         explain.setFont(new Font("Calibri", Font.PLAIN, 20));
+        explain2.setFont(new Font("Calibri", Font.PLAIN, 20));
         f.setContentPane(content);
         f.setResizable(false);
         f.setVisible(true);
@@ -289,33 +305,41 @@ public class Radixsort extends SortingAlgorithm {
         int n = ar.length;
         darr = new int[n];
         int helDigit = 1;
-        GUI.sleep(3000);
-        System.out.println(maxNum/helDigit);
-        while (Math.floor(maxNum/helDigit) >= 1) {
+        GUI.sleep(5000);
+        System.out.println(maxNum / helDigit);
+        while (digit<2) {
 
 
             for (int i = 0; i < 10; i++) {
                 count[i] = 0;
             }
 
-            Arrays.fill(darr,0);
-            explain.setText("Counting how often each key is in digit " + digit);
+            Arrays.fill(darr, 0);
+            if (digit == 0) {
+                explain.setText("Counting how often each \"index\" exists in the rightmost digit");
+
+                explain2.setText("");
+            } else {
+                explain.setText("Counting how often each \"index\" exists in the leftmost digit");
+                explain2.setText("If there is no digit, it is counted as a zero");
+            }
             f.repaint();
             GUI.sleep(2000);
             for (in = 0; in < n; in++) {
                 spInCoKe = (ar[in] / helDigit) % 10;
                 spInArr = in;
                 f.repaint();
-                GUI.sleep(1000);
+                GUI.sleep(1000/(in/n/2+1));
                 spInCo = (ar[in] / helDigit) % 10;
                 count[(ar[in] / helDigit) % 10]++;
                 f.repaint();
-                GUI.sleep(500);
+                GUI.sleep(500/(in/n/2+1));
                 spInCo = -1;
 
             }
             in = 0;
-            explain.setText("Converting Count array to Indexes. Every Number in this Array now represents where in the originial array a number with this key should go");
+            explain.setText("Converting counted digits to Indexes in the Output array");
+            explain2.setText("Each element now equals its old value added to the sum of the previous values");
             f.repaint();
             spInDarr = -1;
             spInArr = -1;
@@ -326,8 +350,9 @@ public class Radixsort extends SortingAlgorithm {
                 f.repaint();
                 GUI.sleep(700);
             }
-
+            GUI.sleep(2000);
             explain.setText("Adding numbers sorted by digit " + digit + " to new Array");
+            explain2.setText("");
             f.repaint();
             for (int i = n - 1; i >= 0; i--) {
                 spInArr = i;
@@ -353,7 +378,7 @@ public class Radixsort extends SortingAlgorithm {
             }
             helDigit *= 10;
             digit += 1;
-            System.out.println(Math.floor(maxNum/helDigit));
+            System.out.println(Math.floor(maxNum / helDigit));
         }
         System.out.println("The End");
         explain.setText("Finished!");

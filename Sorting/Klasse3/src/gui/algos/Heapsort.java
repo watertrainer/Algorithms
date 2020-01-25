@@ -99,8 +99,6 @@ public class Heapsort extends SortingAlgorithm {
                     g.fillRect(i * width, (f.getHeight() - heightoffset) - (ar[i] * height), width, (height * ar[i]));
                     g.setColor(Color.black);
                     String toDraw = String.valueOf(ar[i]);
-
-                    System.out.println(g.getFont());;
                     g.setFont(new Font("Calibri",Font.PLAIN,20));
                     g.drawChars(toDraw.toCharArray(), 0, toDraw.length(), i * width + width / 2, (int) ((f.getHeight() - heightoffset) - (ar[i] * height)) - 10);
                     g.setColor(Color.black);
