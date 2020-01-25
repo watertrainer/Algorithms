@@ -6,7 +6,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-import org.jetbrains.annotations.Nullable;
 import src.gui.AlgosKeyListener;
 import src.gui.algos.*;
 import src.gui.algos.InsertionSort;
