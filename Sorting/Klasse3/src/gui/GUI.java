@@ -19,10 +19,7 @@ public class GUI {
 
     public static boolean allowMultiple, changeOnResize = false;
     public static volatile int[] arr;
-
-    @Nullable
     public static Bucketsort bucket;
-    @Nullable
     public static Radixsort radix;
 
     public static ArrayList<SortingAlgorithm> algos;
