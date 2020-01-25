@@ -1,12 +1,16 @@
-package src.gui.Algorithms;
+package src.gui.algos;
 
-import src.GUI;
+import src.gui.GUI;
 
-public abstract class  SortingAlgorithm {
+import javax.swing.*;
+import java.awt.*;
+
+public abstract class SortingAlgorithm{
     boolean running = false;
     int wait = 0;
     int comparisons;
     int accesses;
+    int writes;
     int swaps;
     protected String info = "";
     public boolean isRunning(){
@@ -14,20 +18,30 @@ public abstract class  SortingAlgorithm {
     };
     public void sort(int[] ar){
 
-        System.out.println(info +". Length: "+ar.length+" Compared: "+comparisons+" Accessed: "+accesses+" Swapped: "+swaps);
-    };
+        System.out.println(getInfo());
+    }
+
+    public void explanationSort(){
+
+    }
+
+    public void drawExplanation(Graphics g){
+
+    }
 
     public String getInfo(){
-        return (info +" Compared: "+comparisons+" Accessed: "+accesses+" Swapped: "+swaps);
+        return (info +"\t Compared: "+comparisons+" Accessed: "+accesses+" Writes: "+writes+" Swapped: "+swaps);
     }
     public void swap(int in1,int in2,int[] ar){
         int save = ar[in1];
         ar[in1] = ar[in2];
         ar[in2] = save;
         swaps++;
+        writes+=2;
         accesses+=2;
         GUI.repaint();
         GUI.sleep(wait);
     }
+
 
 }

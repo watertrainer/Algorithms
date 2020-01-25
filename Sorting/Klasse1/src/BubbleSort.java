@@ -1,6 +1,6 @@
 package src;
 
-import src.GUI;
+import src.gui.GUI;
 
 public class BubbleSort {
 

@@ -1,6 +1,6 @@
-package src.gui.Algorithms;
+package src.gui.algos;
 
-import src.GUI;
+import src.gui.GUI;
 
 public class InsertionSort extends SortingAlgorithm{
 
@@ -9,7 +9,7 @@ public class InsertionSort extends SortingAlgorithm{
 	}
 
 
-	public synchronized void sort(int[] sortieren) {
+	public  void sort(int[] sortieren) {
 	running = true;
 	int temp;
 	for (int i = 1; i < sortieren.length; i++) {
@@ -21,12 +21,14 @@ public class InsertionSort extends SortingAlgorithm{
 			sortieren[j] = sortieren[j - 1];
 			accesses+=2;
 			comparisons++;
+			writes++;
 			j--;
 		}
 
 		GUI.repaint();
 		GUI.sleep(4);
 		sortieren[j] = temp;
+		writes++;
 	}
 	running = false;
 

@@ -1,6 +1,6 @@
 package src.Algorithms;
 
-import src.GUI;
+import src.gui.GUI;
 
 import java.awt.*;
 import java.util.ArrayList;

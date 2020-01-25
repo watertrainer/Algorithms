@@ -1,6 +1,6 @@
 package src.Algorithms;
 
-import src.GUI;
+import src.gui.GUI;
 
 public class Heapsort {
 

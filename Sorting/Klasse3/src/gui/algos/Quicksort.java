@@ -1,15 +1,12 @@
-package src.gui.Algorithms;
+package src.gui.algos;
 
-import src.GUI;
-
-import java.util.Arrays;
-
+import src.gui.GUI;
 public class Quicksort extends SortingAlgorithm{
      int count = 0;
 
      public Quicksort(){
          super();
-         info = "Quicksort: 4ms delay per swap";
+         info = "Quicksort: 4ms delay per swap     ";
          wait = 4;
      }
 
@@ -31,6 +28,7 @@ public class Quicksort extends SortingAlgorithm{
             sortRec(ar,links,t-1);
             sortRec(ar,t+1,rechts);
         }
+        comparisons++;
         return ar;
     }
 
@@ -45,11 +43,11 @@ public class Quicksort extends SortingAlgorithm{
             for(i = links; i<rechts;i++){
 
                 if(ar[i]>=po) {
-                    comparisons++;
-                    accesses++;
+
                     break;
                 }
-
+                comparisons++;
+                accesses++;
 
 
 
@@ -57,16 +55,17 @@ public class Quicksort extends SortingAlgorithm{
             for(j = rechts-1; j>links;j--){
                 if(ar[j]<po){
 
-                    comparisons++;
-                    accesses++;
+
                     break;
 
                 }
+                comparisons++;
+                accesses++;
             }
             if(i<j){
-                comparisons++;
                 swap(i,j,ar);
             }
+            comparisons++;
 
         }
         swap(i,rechts,ar);
