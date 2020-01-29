@@ -379,6 +379,10 @@ public class Radixsort extends SortingAlgorithm {
             helDigit *= 10;
             digit += 1;
             System.out.println(Math.floor(maxNum / helDigit));
+            spInCo = -1;
+            spInArr = -1;
+            spInCoKe = -1;
+            spInDarr = -1;
         }
         System.out.println("The End");
         explain.setText("Finished!");
