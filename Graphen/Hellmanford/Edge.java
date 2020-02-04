@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 public class Edge {
@@ -10,15 +8,15 @@ public class Edge {
     boolean started;
     boolean isUsed;
     int used;
-    Hellmanford h;
+    Graph h;
 
 
 
-    public Edge(int capacity, Node start, Node end,Hellmanford hellmanford) {
+    public Edge(int capacity, Node start, Node end, Graph graph) {
         this.capacity = capacity;
         this.start = start;
         this.end = end;
-        h = hellmanford;
+        h = graph;
 
 
     }
@@ -46,8 +44,12 @@ public class Edge {
         Node s = start;
         start = end;
         end = s;
+        start.child.add(end);
+        end.child.remove(start);
 
     }
+
+
     public double distance(double x1,double y1,double x2,double y2){
         return (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2);
     }
@@ -64,6 +66,7 @@ public class Edge {
     void remove(){
         start.removeEdge(this);
         end.removeEdge(this);
+        start.child.remove(end);
         if(h.edges.remove(this));
     }
 

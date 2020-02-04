@@ -4,9 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MyMouseListener implements MouseListener {
-    final Hellmanford m;
+    final Graph m;
+    @org.jetbrains.annotations.Nullable
     Node selSta,selEnd;
-    MyMouseListener(Hellmanford a){
+    MyMouseListener(Graph a){
         m = a;
     }
     @Override
@@ -120,7 +121,7 @@ public class MyMouseListener implements MouseListener {
 
                 }
                 if(m.end != null && m.start != null){
-                    m.fordFulkerson();
+                    m.fordFulkerson(true);
                 }
 
             }

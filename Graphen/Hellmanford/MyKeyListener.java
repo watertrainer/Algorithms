@@ -1,10 +1,9 @@
-import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class MyKeyListener extends KeyAdapter {
-    private final Hellmanford m;
-    MyKeyListener(Hellmanford a){
+    private final Graph m;
+    MyKeyListener(Graph a){
         m = a;
     }
 

@@ -2,8 +2,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class MyMouseMotionListener implements MouseMotionListener {
-    final Hellmanford m;
-    public MyMouseMotionListener (Hellmanford a){
+    final Graph m;
+    public MyMouseMotionListener (Graph a){
         m = a;
     }
     @Override
