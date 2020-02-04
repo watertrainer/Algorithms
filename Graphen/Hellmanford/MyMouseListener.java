@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 public class MyMouseListener implements MouseListener {
     final Hellmanford m;
-    @org.jetbrains.annotations.Nullable
     Node selSta,selEnd;
     MyMouseListener(Hellmanford a){
         m = a;

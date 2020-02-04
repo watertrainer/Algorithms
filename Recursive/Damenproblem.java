@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Damenproblem {
     public static void main(String[] args){
-        int n = 14;
+        int n = 8;
         Dame[] damen = new Dame[n];
         for(int i = 0;i<n;i++){
             damen[i] = new Dame();
@@ -16,6 +16,7 @@ public class Damenproblem {
     public static void damenproblem(Dame[] damen,int row,int n){
         if(row >= n){
             count++;
+            System.out.println("FINISH: "+Arrays.toString(damen));
             return;
         }
         int y = 0;

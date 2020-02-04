@@ -6,7 +6,6 @@ public class Node {
     int y;
     ArrayList<Edge> edges;
     Hellmanford h;
-    @org.jetbrains.annotations.Nullable
     Color toRender;
     boolean used;
     public Node(int x,int y,Hellmanford hellmanford){
