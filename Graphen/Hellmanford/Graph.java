@@ -1,7 +1,5 @@
 
 
-import org.jetbrains.annotations.Nullable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -179,7 +177,7 @@ public class Graph {
 
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     public ArrayList<Integer> DFS(int d, Node cur, ArrayList<Integer> ins, boolean visual) {
         Color p = null;
         if(visual) {
