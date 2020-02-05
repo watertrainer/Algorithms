@@ -8,16 +8,16 @@ public class Node {
     int x;
     int y;
     ArrayList<Edge> edges;
-    ArrayList<Node> child;
+    //ArrayList<Node> child;
     Graph h;
     @org.jetbrains.annotations.Nullable
     Color toRender;
-    boolean used;
+    boolean visited;
     public Node(int x, int y, Graph graph){
         this.x = x;
         this.y = y;
         edges = new ArrayList<>();
-        child = new ArrayList<>();
+        //child = new ArrayList<>();
         h = graph;
     }
 
@@ -45,8 +45,8 @@ public class Node {
         Edge e = new Edge(1,this,n,h);
         if(!edges.contains(e) && !e.start.equals(e.end)) {
             edges.add(e);
-            child.add(n);
-            n.edges.add(e);
+            //child.add(n);
+            //n.edges.add(e);
             h.edges.add(e);
             return true;
         }
@@ -54,7 +54,15 @@ public class Node {
             return false;
         }
     }
+    public void createAugmentedEdges(){
+        int si = edges.size();
+        for(int i = 0;i<si;i++){
+            Edge e = new Edge(edges.get(i).capacity,edges.get(i).end,this,h);
+            e.used = e.capacity;
+            edges.get(i).end.edges.add(e);
 
+        }
+    }
     public void removeEdge(Edge edge){
         if(edges.remove(edge)){
 
@@ -77,7 +85,7 @@ public class Node {
     }
 
     public void sortNodes(){
-        child.sort(Comparator.comparingInt(a -> -a.y));
+        edges.sort(Comparator.comparingInt(a -> -a.end.y));
     }
     @Nullable
     public Edge getEdgeTo(Node n){

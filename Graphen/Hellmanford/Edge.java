@@ -9,6 +9,7 @@ public class Edge {
     boolean isUsed;
     int used;
     Graph h;
+    Color toRender;
 
 
 
@@ -20,9 +21,12 @@ public class Edge {
 
 
     }
-
+    public void addUsed(int i){
+        used += i;
+        end.getEdgeTo(start).used -= i;
+    }
     public boolean canHoldCapacity(int flow){
-        return capacity>=flow;
+        return capacity- used>=flow;
     }
 
     public double isBetween(int x,int y){
@@ -44,8 +48,8 @@ public class Edge {
         Node s = start;
         start = end;
         end = s;
-        start.child.add(end);
-        end.child.remove(start);
+        start.edges.add(this);
+        end.edges.remove(this);
 
     }
 
@@ -57,17 +61,23 @@ public class Edge {
 
         String toDraw = String.valueOf(capacity);
         if(started) toDraw = used+"/"+capacity;
+        if(toRender != null){
+            g.setColor(toRender);
+        }
+
         g.drawChars(toDraw.toCharArray(),0,toDraw.toCharArray().length,(start.x+end.x)/2,(start.y+end.y)/2);
 
         Arrow.drawArrow((Graphics2D)g,this);
         g.drawLine(start.x,start.y,end.x,end.y);
+        if(toRender!=null)
+            g.setColor(Color.black);
 
     }
     void remove(){
         start.removeEdge(this);
-        end.removeEdge(this);
-        start.child.remove(end);
-        if(h.edges.remove(this));
+        //end.removeEdge(this);
+        //start.child.remove(end);
+        h.edges.remove(this);
     }
 
     @Override
@@ -87,4 +97,5 @@ public class Edge {
         result = 31 * result + end.hashCode();
         return result;
     }
+
 }
