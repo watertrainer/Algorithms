@@ -13,6 +13,8 @@ public class Node {
     @org.jetbrains.annotations.Nullable
     Color toRender;
     boolean visited;
+
+    int origInd;
     public Node(int x, int y, Graph graph){
         this.x = x;
         this.y = y;
@@ -36,8 +38,10 @@ public class Node {
             g.fillOval(x-5,y-5,10,10);
             g.setColor(Color.black);
         }
-        else
+        else{
+
             g.fillOval(x-5,y-5,10,10);
+        }
 
     }
 
@@ -60,6 +64,18 @@ public class Node {
             Edge e = new Edge(edges.get(i).capacity,edges.get(i).end,this,h);
             e.used = e.capacity;
             edges.get(i).end.edges.add(e);
+
+        }
+        origInd = si;
+
+    }
+
+    public void removeAugmented(){
+        while(edges.size()!=origInd)
+            edges.remove(edges.size()-1);
+        for (Edge e:
+             edges) {
+            e.used = 0;
 
         }
     }
@@ -112,4 +128,13 @@ public class Node {
         result = 31 * result + y;
         return result;
     }
+
+    @Override
+    public Node clone(){
+        Node n = new Node(x,y,h);
+        n.edges = (ArrayList<Edge>) edges.clone();
+        return n;
+    }
+
+
 }

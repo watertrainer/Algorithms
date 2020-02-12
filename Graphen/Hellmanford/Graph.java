@@ -1,13 +1,14 @@
 
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Graph {
     ArrayList<Node> nodes = new ArrayList<Node>(20);
-    List<Edge> edges = new ArrayList<Edge>(50);
+    ArrayList<Edge> edges = new ArrayList<Edge>(50);
     boolean strg, cre, e, started, s;
     Node moveing;
     boolean moving;
@@ -38,8 +39,7 @@ public class Graph {
 
             }
         };
-        p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
-        p.add(Box.createHorizontalGlue());
+        p.setLayout(new BoxLayout(p,BoxLayout.LINE_AXIS));
         p.setFocusable(true);
         p.addMouseListener(new MyMouseListener(this));
         p.addKeyListener(new MyKeyListener(this));
@@ -47,12 +47,18 @@ public class Graph {
 
 
         Arrow.init();
+        JPanel infopanel = new JPanel();
+        infopanel.setLayout(new BoxLayout(infopanel,BoxLayout.PAGE_AXIS));
+
         info = new JLabel("");
-        info.setAlignmentX(Component.CENTER_ALIGNMENT);
-        info.setAlignmentY(Component.TOP_ALIGNMENT);
-        info.setBorder(BorderFactory.createLineBorder(Color.green));
-        p.add(info);
-        p.add(Box.createVerticalGlue());
+        //info.setBorder(BorderFactory.createLineBorder(Color.green));
+
+        infopanel.add(info);
+        infopanel.add(Box.createVerticalGlue());
+        infopanel.setOpaque(false);
+
+        p.add(infopanel);
+        p.add(Box.createHorizontalGlue());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.PAGE_AXIS));
@@ -68,22 +74,23 @@ public class Graph {
         fordFulkerson.setAlignmentY(Component.TOP_ALIGNMENT);
         fordFulkerson.setFocusable(false);
 
-        JButton randomize = new JButton("Randomize");
-        randomize.addActionListener(actionEvent -> {
-            randomize();
-        });
+        //JButton randomize = new JButton("Randomize");
+        //randomize.addActionListener(actionEvent -> {
+       //     randomize();
+       // });
 
-        randomize.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        randomize.setAlignmentY(Component.TOP_ALIGNMENT);
-        randomize.setFocusable(false);
+       // randomize.setAlignmentX(Component.RIGHT_ALIGNMENT);
+       // randomize.setAlignmentY(Component.TOP_ALIGNMENT);
+       // randomize.setFocusable(false);
 
 
         buttonPane.add(fordFulkerson);
-        buttonPane.add(randomize);
+       // buttonPane.add(randomize);
         buttonPane.add(Box.createVerticalGlue());
-        buttonPane.setBorder(BorderFactory.createLineBorder(Color.red));
+        //buttonPane.setBorder(BorderFactory.createLineBorder(Color.red));
+        buttonPane.setOpaque(false);
 
-        p.add(buttonPane);
+        p.add(buttonPane,BorderLayout.EAST);
 
 
         f.setContentPane(p);
@@ -118,8 +125,13 @@ public class Graph {
                 inmx = i;
             }
         }
+        if(inx == -1 || inmx == -1) {
+            info.setText("");
+            return;
+        }
         setStart(nodes.get(inx));
         setEnd(nodes.get(inmx));
+
 
         if (visual) {
             for (Node node : nodes) {
@@ -181,8 +193,14 @@ public class Graph {
             info.setText("No Path Found!");
             sleep(5000);
             info.setText("Max Flow found " + maxFlow);
+
         }
         setStarted(false);
+        for(Node n:nodes){
+            n.removeAugmented();
+        }
+        f.repaint();
+
 
 
     }
@@ -190,11 +208,16 @@ public class Graph {
     @org.jetbrains.annotations.Nullable
     public ArrayList<Integer> DFS(int d, Node cur, ArrayList<Integer> ins, boolean visual) {
         Color p = null;
-        if (cur.visited) {
-            return null;
-        }
+
         if (visual) {
             p = select(cur);
+        }
+        if (cur.visited) {
+            while(ins.size()<=d && d>0)
+                ins.remove(ins.size()-1);
+            if (visual)
+                cur.toRender = p;
+            return null;
         }
         if (cur == end) {
 
@@ -210,10 +233,10 @@ public class Graph {
 
         for (int i = 0; i < cur.edges.size(); i++) {
             ins.set(d, i);
-            System.out.println(i +" for edge"+cur.edges.size()+" List: "+ins);
+            System.out.println(i +" for edge "+cur.edges.size()+" List: "+ins);
             cur.visited = true;
             if (cur.edges.get(i).canHoldCapacity(1) && DFS(d + 1, cur.edges.get(i).end, ins, visual) != null) {
-
+                ins.set(d, i);
                 if (visual)
                     cur.toRender = p;
 

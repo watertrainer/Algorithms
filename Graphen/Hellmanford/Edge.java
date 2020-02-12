@@ -64,16 +64,18 @@ public class Edge {
         if(toRender != null){
             g.setColor(toRender);
         }
+        else if(end.toRender!= null && end.toRender.equals(start.toRender)){
+            g.setColor(end.toRender);
+        }
 
         g.drawChars(toDraw.toCharArray(),0,toDraw.toCharArray().length,(start.x+end.x)/2,(start.y+end.y)/2);
 
         Arrow.drawArrow((Graphics2D)g,this);
         g.drawLine(start.x,start.y,end.x,end.y);
-        if(toRender!=null)
-            g.setColor(Color.black);
+        g.setColor(Color.black);
 
     }
-    void remove(){
+    public void remove(){
         start.removeEdge(this);
         //end.removeEdge(this);
         //start.child.remove(end);
@@ -96,6 +98,14 @@ public class Edge {
         int result = start.hashCode();
         result = 31 * result + end.hashCode();
         return result;
+    }
+
+    @Override
+    public Edge clone(){
+        System.out.println("cloned");
+        Edge e = new Edge(capacity,start,end,h);
+        e.used = used;
+        return e;
     }
 
 }

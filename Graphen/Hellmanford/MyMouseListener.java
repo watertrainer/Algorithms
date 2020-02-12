@@ -18,8 +18,8 @@ public class MyMouseListener implements MouseListener {
     public void mousePressed(MouseEvent e)
     {
 
-        JComponent j = (JComponent)e.getSource();
-        j.requestFocus();
+        JComponent jc = (JComponent)e.getSource();
+        jc.requestFocus();
         if(!m.started) {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (m.strg) {
@@ -83,6 +83,13 @@ public class MyMouseListener implements MouseListener {
                 for (int i = 0; i < m.nodes.size(); i++) {
                     if (m.nodes.get(i).clicked(e.getX(), e.getY())) {
                         m.nodes.get(i).clearEdges();
+                        for(int j = 0;j<m.edges.size();j++){
+                            Edge ed = m.edges.get(j);
+                            if(ed.end.equals(m.nodes.get(i))){
+                                ed.remove();
+                                j--;
+                            }
+                        }
                         m.nodes.remove(i);
                         return;
                     }
@@ -90,7 +97,6 @@ public class MyMouseListener implements MouseListener {
                 for (int i = 0; i < m.edges.size(); i++) {
                     if (m.edges.get(i).isBetween(e.getX(), e.getY()) < 90) {
                         if (m.strg) {
-
                             m.edges.get(i).remove();
                         } else if (m.edges.get(i).capacity == 0) {
                             int an = JOptionPane.showConfirmDialog(null,
