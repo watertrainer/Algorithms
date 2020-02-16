@@ -1,3 +1,8 @@
+package GUI;
+
+import Algorithm.Edge;
+import Algorithm.Node;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -113,24 +118,6 @@ public class MyMouseListener implements MouseListener {
             }
         }
         else{
-            if(m.e || m.s){
-                for (int i = 0; i < m.nodes.size(); i++) {
-
-                    if (m.nodes.get(i).clicked(e.getX(), e.getY())) {
-                        if (m.s) {
-                            m.setStart(m.nodes.get(i));
-                        } else if(m.e) {
-                            m.setEnd(m.nodes.get(i));
-                        }
-                        break;
-                    }
-
-                }
-                if(m.end != null && m.start != null){
-                    m.fordFulkerson(true);
-                }
-
-            }
         }
     }
 

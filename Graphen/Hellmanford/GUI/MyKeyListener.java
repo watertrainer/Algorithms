@@ -1,3 +1,5 @@
+package GUI;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -22,7 +24,7 @@ public class MyKeyListener extends KeyAdapter {
                 }
                 m.info.setText("");
             }else {
-                m.info.setText("Select start and end Node (Press S or E and select a Node)");
+                m.info.setText("Select start and end Algorithm.Node (Press S or E and select a Algorithm.Node)");
                 m.setStarted(true);
             }
         }

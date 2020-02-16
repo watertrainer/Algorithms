@@ -13,6 +13,6 @@ public class TürmeHanoi {
 
     public static void main(String[] args){
 
-        tower(4, 'A', 'C', 'B');
+        tower(10, 'A', 'C', 'B');
     }
 }

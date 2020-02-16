@@ -1,19 +1,23 @@
+package GUI;
+
+import Algorithm.Edge;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 
 public class Arrow {
     private static Polygon arrowHead = new Polygon();
-    /**Drawing an Arrow Head**/
+    /**Drawing an GUI.Arrow Head**/
     static AffineTransform tx = new AffineTransform();
 
     public static void init(){
-        //Draw an Arrow
+        //Draw an GUI.Arrow
         arrowHead.addPoint( 0,-5);
         arrowHead.addPoint( -5, -15);
         arrowHead.addPoint( 5,-15);
     }
-    public static void drawArrow(Graphics2D g,Edge e){
+    public static void drawArrow(Graphics2D g, Edge e){
         tx.setToIdentity();
         double angle = Math.atan2(e.end.y-e.start.y, e.end.x-e.start.x);
         double angleU = angle;

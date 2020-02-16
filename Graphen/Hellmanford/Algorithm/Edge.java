@@ -1,15 +1,21 @@
+package Algorithm;
+
+import GUI.Arrow;
+import GUI.Graph;
+import org.jetbrains.annotations.Nullable;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class Edge {
-    int capacity;
-    Node start;
-    Node end;
-    boolean started;
-    boolean isUsed;
-    int used;
-    Graph h;
-    Color toRender;
+    public int capacity;
+    public Node start;
+    public Node end;
+    public boolean started;
+    public int used;
+    private final Graph h;
+    @Nullable
+    public Color toRender;
 
 
 
@@ -26,7 +32,7 @@ public class Edge {
         end.getEdgeTo(start).used -= i;
     }
     public boolean canHoldCapacity(int flow){
-        return capacity- used>=flow;
+        return capacity - used >=flow;
     }
 
     public double isBetween(int x,int y){
@@ -63,9 +69,6 @@ public class Edge {
         if(started) toDraw = used+"/"+capacity;
         if(toRender != null){
             g.setColor(toRender);
-        }
-        else if(end.toRender!= null && end.toRender.equals(start.toRender)){
-            g.setColor(end.toRender);
         }
 
         g.drawChars(toDraw.toCharArray(),0,toDraw.toCharArray().length,(start.x+end.x)/2,(start.y+end.y)/2);
