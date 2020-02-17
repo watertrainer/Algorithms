@@ -1,6 +1,3 @@
-package Algorithm;
-
-import GUI.Graph;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -8,16 +5,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Node {
-    public int x;
-    public int y;
+    int x;
+    int y;
     public ArrayList<Edge> edges;
-    //ArrayList<Algorithm.Node> child;
-    private final Graph h;
+    //ArrayList<Node> child;
+    Graph h;
     @org.jetbrains.annotations.Nullable
-    public Color toRender;
-    public boolean visited;
-    public int origInd;
+    Color toRender;
+    boolean visited;
 
+    int origInd;
     public Node(int x, int y, Graph graph){
         this.x = x;
         this.y = y;
@@ -62,12 +59,14 @@ public class Node {
         }
     }
     public void createAugmentedEdges(){
-        for(int i = 0;i<origInd;i++){
+        int si = edges.size();
+        for(int i = 0;i<si;i++){
             Edge e = new Edge(edges.get(i).capacity,edges.get(i).end,this,h);
             e.used = e.capacity;
             edges.get(i).end.edges.add(e);
 
         }
+        origInd = si;
 
     }
 

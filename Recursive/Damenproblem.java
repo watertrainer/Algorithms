@@ -19,10 +19,9 @@ public class Damenproblem {
             System.out.println("FINISH: "+Arrays.toString(damen));
             return;
         }
-        int y = 0;
-        for(int i = y;i<n+y;i++){
+        for(int i = 0;i<n;i++){
             if(cert(damen,row,i%n)){
-                damen[row].y = i%n;
+                damen[row].y = i;
 
                 damenproblem(damen,row+1,n);
             }
