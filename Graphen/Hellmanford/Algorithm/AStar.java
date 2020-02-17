@@ -23,7 +23,7 @@ public class AStar extends GraphAlgorithm {
             g.nodes.get(i).cost = Integer.MAX_VALUE;
         curr.cost = 0;
         for(int i = 0; i < curr.edges.size(); i++) {
-            curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity;
+            curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
             bekannt.add(curr.edges.get(i).end);
         }
         bekannt.sort(Comparator.comparingInt(a -> a.cost));
@@ -33,7 +33,7 @@ public class AStar extends GraphAlgorithm {
 
         while(!bekannt.isEmpty()){
             for(int i = 0; i < curr.edges.size(); i++) {
-                curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity;
+                curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
                 bekannt.add(curr.edges.get(i).end);
             }
             bekannt.sort(Comparator.comparingInt(a -> a.cost));
