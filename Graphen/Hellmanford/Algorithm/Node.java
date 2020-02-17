@@ -1,3 +1,6 @@
+package Algorithm;
+
+import GUI.Graph;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -13,6 +16,7 @@ public class Node {
     @org.jetbrains.annotations.Nullable
     Color toRender;
     boolean visited;
+    int cost;
 
     int origInd;
     public Node(int x, int y, Graph graph){

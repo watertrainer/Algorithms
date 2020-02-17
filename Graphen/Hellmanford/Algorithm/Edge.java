@@ -1,5 +1,8 @@
+package Algorithm;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
+import GUI.*;
 
 public class Edge {
     public int capacity;
