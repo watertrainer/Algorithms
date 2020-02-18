@@ -41,7 +41,8 @@ public class FordFulkerson extends GraphAlgorithm {
             }
             g.info.setText("Start and finish chosen. Starting to find the max tree");
             g.f.repaint();
-            g.sleep(3000);
+            if(sleep(3000))
+                return;
             g.info.setText("Finding Path");
         }
         for (Node n : g.nodes)
@@ -69,7 +70,8 @@ public class FordFulkerson extends GraphAlgorithm {
             if (visual) {
                 g.info.setText("Minimal capacity is " + minc);
                 g.f.repaint();
-                g.sleep(3000);
+                if (sleep(3000))
+                    return;
             }
             cur = g.start;
 
@@ -80,9 +82,9 @@ public class FordFulkerson extends GraphAlgorithm {
                 cur = ins.get(i).end;
 
                 if (visual) {
-                    cur.toRender = null;
+                    deselect(ins.get(i));
+                    deselect(cur);
                     g.f.repaint();
-                    g.sleep(100);
                 }
             }
             maxFlow += minc;
@@ -95,7 +97,8 @@ public class FordFulkerson extends GraphAlgorithm {
 
         if (visual) {
             g.info.setText("No Path Found!");
-            g.sleep(5000);
+            if(sleep(5000))
+                return;
             g.info.setText("Max Flow found " + maxFlow);
 
         }
@@ -103,23 +106,18 @@ public class FordFulkerson extends GraphAlgorithm {
         for (Node n : g.nodes) {
             n.removeAugmented();
         }
-        g.start.toRender = null;
-        g.end.toRender = null;
-        g.f.repaint();
 
     }
 
     @org.jetbrains.annotations.Nullable
     public LinkedList<Edge> DFS(int d, Node cur, LinkedList<Edge> ins, boolean visual) {
-        Color p = null;
-
-        if (visual) {
-            p = g.select(cur);
-        }
+        if(visual)
+            if(select(cur))
+                return null;
         if (cur.visited) {
             if (visual) {
-                g.deselect(cur, p);
-                g.deselect(ins.getLast(), null);
+                deselect(cur);
+                deselect(ins.getLast());
             }
             ins.removeLast();
             cur.visited = false;
@@ -128,8 +126,8 @@ public class FordFulkerson extends GraphAlgorithm {
         if (cur == g.end) {
 
             if (visual) {
-                g.deselect(cur, p);
-                g.deselect(ins.getLast(), null);
+                //g.deselect(cur, p);
+                //g.deselect(ins.getLast(), null);
             }
 
 
@@ -143,15 +141,16 @@ public class FordFulkerson extends GraphAlgorithm {
             if (!cur.edges.get(i).canHoldCapacity(1))
                 continue;
             if (visual) {
-                    g.select(cur.edges.get(i));
+                if(select(cur.edges.get(i)))
+                    return null;
             }
             ins.add(cur.edges.get(i));
 
             System.out.println(i + " for edge " + cur.edges.size() + " List: " + ins);
             if (DFS(d + 1, cur.edges.get(i).end, ins, visual) != null) {
                 if (visual){
-                    g.deselect(cur,p);
-                    g.deselect(ins.getLast(),null);
+                    //g.deselect(cur,p);
+                    //g.deselect(ins.getLast(),null);
                 }
                 cur.visited = false;
                 return ins;
@@ -161,9 +160,9 @@ public class FordFulkerson extends GraphAlgorithm {
         }
 
         if (visual){
-            g.deselect(cur,p);
+            deselect(cur);
             if(!ins.isEmpty())
-                g.deselect(ins.getLast(),null);
+                deselect(ins.getLast());
         }
 
         cur.visited = false;

@@ -3,10 +3,8 @@ package Algorithm;
 import GUI.Graph;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 public class AStar extends GraphAlgorithm {
 
@@ -39,41 +37,75 @@ public class AStar extends GraphAlgorithm {
         }
         g.setStart(g.nodes.get(inx));
         g.setEnd(g.nodes.get(inmx));
-
-        g.info.setText("Start and End selected. Starting to calculate the shortest Path");
+        if(visual) {
+            g.info.setText("Start and End selected. Starting to calculate the shortest Path");
+        }
+        sleep(2000);
         List<Node> bekannt = new ArrayList<Node>();
         Node curr = g.start;
-        Color p = g.select(curr);
         for(int i = 0; i < g.nodes.size(); i++)
             g.nodes.get(i).cost = Integer.MAX_VALUE;
         curr.cost = 0;
         for(int i = 0; i < curr.edges.size(); i++) {
             curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
             bekannt.add(curr.edges.get(i).end);
+            if(visual) {
+                if(select(curr.edges.get(i).end, Color.yellow))
+                    return;
+                if(select(curr.edges.get(i),Color.green))
+                    return;
+            }
         }
         bekannt.sort(Comparator.comparingInt(a -> a.cost));
-        g.deselect(curr,p);
-        curr = bekannt.get(0);
-        p = g.select(curr);
-        bekannt.remove(0);
 
-        while(!bekannt.isEmpty()){
+
+        while(!bekannt.isEmpty()){g.info.setText("Selecting next Node");
+            if(visual){
+                if(select(curr,Color.GREEN))
+                    return;
+                if(select(bekannt.get(0)))
+                    return;
+            }
+            curr = bekannt.get(0);
             for(int i = 0; i < curr.edges.size(); i++) {
                 curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-
                         g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
                 bekannt.add(curr.edges.get(i).end);
+                if(visual) {
+                    if(select(curr.edges.get(i).end, Color.yellow))
+                        return;
+
+                    if(select(curr.edges.get(i),Color.green))return;
+                }
             }
             bekannt.sort(Comparator.comparingInt(a -> a.cost));
+            bekannt.remove(curr);
+            if(visual){
+                if(select(curr,Color.GREEN))
+                    return;
+            }
 
-            if(curr.getEdgeTo(bekannt.get(0))!=null)
-                g.select(curr.getEdgeTo(bekannt.get(0)));
-            curr = bekannt.get(0);
-            p = g.select(curr);
-
-            bekannt.remove(0);
         }
-        g.info.setText("Shortest Path found. It costs  "+g.end.cost+" to get there");
-        g.sleep(5000);
+        if(visual) {
+            g.info.setText("Shortest Path found.");
+            sleep(5000);
+            g.info.setText("Here it is");
+            while (curr!= g.start){
+                for(Edge e:curr.edgeToMe){
+                    if(curr.cost - e.capacity == e.start.cost) {
+                        curr = e.start;
+                        if(select(curr, Color.red))
+                            return;
+                        if(select(e,Color.red))
+                            return;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
     }
 
 

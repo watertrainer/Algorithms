@@ -1,13 +1,12 @@
 package GUI;
 
-import Algorithm.AStar;
-import Algorithm.Edge;
-import Algorithm.FordFulkerson;
-import Algorithm.Node;
+import Algorithm.*;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -21,6 +20,7 @@ public class Graph {
 
     public FordFulkerson ford;
     public AStar aStar;
+    public Dijkstra dijkstra;
 
     public Node start, end;
     public JFrame f;
@@ -90,9 +90,49 @@ public class Graph {
 
         JButton kruskal = new JButton("Kruskal");
 
+        JButton dijkstraButton = new JButton("Dijkstra");
+        dijkstra = new Dijkstra(this);
+        dijkstraButton.addActionListener(dijkstra);
+
+        dijkstraButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        dijkstraButton.setAlignmentY(Component.TOP_ALIGNMENT);
+        dijkstraButton.setFocusable(false);
+
+        JButton pause = new JButton("Pause");
+        pause.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pause();
+            }
+        });
+        pause.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        JButton continueButton = new JButton("Continue");
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cont();
+            }
+        });
+        continueButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        JButton cancelButton = new JButton("cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancel();
+            }
+        });
+        cancelButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
 
         buttonPane.add(fordFulkerson);
         buttonPane.add(aStarButton);
+        buttonPane.add(dijkstraButton);
+
+        buttonPane.add(pause);
+        buttonPane.add(continueButton);
+        buttonPane.add(cancelButton);
         buttonPane.add(Box.createVerticalGlue());
         buttonPane.setOpaque(false);
 
@@ -118,7 +158,39 @@ public class Graph {
 
 
 
+    public void pause(){
+        f.repaint();
+        try {
+            if (dijkstra.isRunning()) {
+                dijkstra.pause();
+            }else if(aStar.isRunning())
+                aStar.pause();
+            else if(ford.isRunning())
+                ford.pause();
+        }
+        catch (Exception e){
 
+        }
+    }
+
+    public void cont(){
+        f.repaint();
+        if (dijkstra.isPaused()) {
+            dijkstra.cont();
+        }else if(aStar.isPaused())
+            aStar.cont();
+        else if(ford.isPaused())
+            ford.cont();
+    }
+
+    public void cancel(){
+        if (dijkstra.isRunning()) {
+            dijkstra.cancel();
+        }else if(aStar.isRunning())
+            aStar.cancel();
+        else if(ford.isRunning())
+            ford.cancel();
+    }
 
     public void randomize() {
         int numNodes = 7;
@@ -150,47 +222,18 @@ public class Graph {
         }
     }
 
-    public Color select(Node cur) {
-        Color p = cur.toRender;
-        cur.toRender = new Color(55
-                , 113, 255);
-        f.repaint();
-        sleep(2000);
-        return p;
-    }
 
-    public Color select(Node cur, Color c) {
-        Color p = cur.toRender;
-        cur.toRender = c;
-        f.repaint();
-        sleep(2000);
-        return p;
-    }
-
-    public Color select(Edge e){
-        Color p = e.toRender;
-        e.toRender = new Color(55
-                , 113, 255);
-        f.repaint();
-        return p;
-    }
-    public void deselect(Node cur, Color p){
-        cur.toRender = p;
-    }
-    public void deselect(Edge i, Color p){
-        i.toRender = p;
-    }
-    public void sleep(int i) {
-        try {
-            Thread.sleep(i);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     public void setStarted(boolean t) {
         for (int i = 0; i < edges.size(); i++) {
             edges.get(i).started = t;
+            if(!t)
+                edges.get(i).toRender = null;
+        }
+        if(!t){
+            for(Node n:nodes){
+                n.toRender = null;
+            }
         }
         started = t;
         f.repaint();
@@ -198,20 +241,20 @@ public class Graph {
 
     public void setStart(Node start) {
         if (this.start != null) {
-            this.start.toRender = null;
+            this.start.toRenderNormal = null;
         }
         this.start = start;
         if(start != null)
-        start.toRender = Color.red;
+            start.toRenderNormal = Color.red;
     }
 
     @Nullable
     public void setEnd(Node end) {
         if (this.end != null) {
-            this.end.toRender = null;
+            this.end.toRenderNormal = null;
         }
         this.end = end;
         if(end != null)
-        end.toRender = Color.green;
+        end.toRenderNormal = Color.green;
     }
 }

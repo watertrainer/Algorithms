@@ -11,10 +11,13 @@ public class Node {
     public int x;
     public int y;
     public ArrayList<Edge> edges;
+    public ArrayList<Edge> edgeToMe;
     //ArrayList<Node> child;
     Graph h;
     @org.jetbrains.annotations.Nullable
     public Color toRender;
+
+    public Color toRenderNormal;
     boolean visited;
     public int cost;
 
@@ -23,8 +26,10 @@ public class Node {
         this.x = x;
         this.y = y;
         edges = new ArrayList<>();
+        edgeToMe = new ArrayList<>();
         //child = new ArrayList<>();
         h = graph;
+        toRenderNormal =Color.black;
     }
 
 
@@ -39,13 +44,16 @@ public class Node {
         if(toRender!=null){
             g.setColor(toRender);
 
-            g.fillOval(x-5,y-5,10,10);
-            g.setColor(Color.black);
         }
         else{
-
-            g.fillOval(x-5,y-5,10,10);
+            g.setColor(toRenderNormal);
         }
+        if(h.aStar.isRunning() || h.dijkstra.isRunning()){
+            String toDraw = cost == Integer.MAX_VALUE ? "\u221e" :String.valueOf(cost);
+            g.drawString(toDraw,x,y+20);
+        }
+        g.fillOval(x-5,y-5,10,10);
+        g.setColor(Color.black);
 
     }
 
@@ -53,8 +61,9 @@ public class Node {
         Edge e = new Edge(1,this,n,h);
         if(!edges.contains(e) && !e.start.equals(e.end)) {
             edges.add(e);
+            n.edgeToMe.add(e);
+            System.out.println(n.edgeToMe);
             //child.add(n);
-            //n.edges.add(e);
             h.edges.add(e);
             return true;
         }
@@ -85,7 +94,7 @@ public class Node {
     }
     public void removeEdge(Edge edge){
         if(edges.remove(edge)){
-
+            edge.end.edgeToMe.remove(edge);
         }
 
     }
@@ -110,7 +119,7 @@ public class Node {
     @Nullable
     public Edge getEdgeTo(Node n){
         for(int i = 0;i<edges.size();i++){
-            if(edges.get(i).end == n)
+            if(edges.get(i).end.equals(n))
                 return edges.get(i);
         }
         return null;

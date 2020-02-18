@@ -3,6 +3,7 @@ package Algorithm;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import GUI.*;
+import org.jetbrains.annotations.Nullable;
 
 public class Edge {
     public int capacity;
@@ -12,6 +13,7 @@ public class Edge {
     boolean isUsed;
     public int used;
     public final Graph h;
+    @Nullable
     public Color toRender;
 
 
@@ -52,6 +54,8 @@ public class Edge {
         start = end;
         end = s;
         start.edges.add(this);
+        start.edgeToMe.remove(this);
+        end.edgeToMe.add(this);
         end.edges.remove(this);
 
     }
@@ -63,7 +67,7 @@ public class Edge {
     public void draw(Graphics g){
 
         String toDraw = String.valueOf(capacity);
-        if(started) toDraw = used+"/"+capacity;
+        if(h.ford.isRunning()) toDraw = used+"/"+capacity;
         if(toRender != null){
             g.setColor(toRender);
         }
@@ -108,4 +112,13 @@ public class Edge {
         return e;
     }
 
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "capacity=" + capacity +
+                ", start=" + start +
+                ", end=" + end +
+                ", used=" + used +
+                '}';
+    }
 }
