@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Node {
-    int x;
-    int y;
+    public int x;
+    public int y;
     public ArrayList<Edge> edges;
     //ArrayList<Node> child;
     Graph h;
     @org.jetbrains.annotations.Nullable
-    Color toRender;
+    public Color toRender;
     boolean visited;
-    int cost;
+    public int cost;
 
     int origInd;
     public Node(int x, int y, Graph graph){

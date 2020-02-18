@@ -1,5 +1,6 @@
 package GUI;
 
+import Algorithm.AStar;
 import Algorithm.Edge;
 import Algorithm.FordFulkerson;
 import Algorithm.Node;
@@ -19,6 +20,7 @@ public class Graph {
     public boolean moving;
 
     public FordFulkerson ford;
+    public AStar aStar;
 
     public Node start, end;
     public JFrame f;
@@ -78,11 +80,19 @@ public class Graph {
         fordFulkerson.setAlignmentY(Component.TOP_ALIGNMENT);
         fordFulkerson.setFocusable(false);
 
+        JButton aStarButton = new JButton("A*");
+        aStar = new AStar(this);
+        aStarButton.addActionListener(aStar);
+
+        aStarButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        aStarButton.setAlignmentY(Component.TOP_ALIGNMENT);
+        aStarButton.setFocusable(false);
+
         JButton kruskal = new JButton("Kruskal");
 
 
-
         buttonPane.add(fordFulkerson);
+        buttonPane.add(aStarButton);
         buttonPane.add(Box.createVerticalGlue());
         buttonPane.setOpaque(false);
 
@@ -144,6 +154,14 @@ public class Graph {
         Color p = cur.toRender;
         cur.toRender = new Color(55
                 , 113, 255);
+        f.repaint();
+        sleep(2000);
+        return p;
+    }
+
+    public Color select(Node cur, Color c) {
+        Color p = cur.toRender;
+        cur.toRender = c;
         f.repaint();
         sleep(2000);
         return p;

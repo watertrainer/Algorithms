@@ -6,13 +6,13 @@ import GUI.*;
 
 public class Edge {
     public int capacity;
-    Node start;
-    Node end;
-    boolean started;
+    public Node start;
+    public Node end;
+    public boolean started;
     boolean isUsed;
-    int used;
-    Graph h;
-    Color toRender;
+    public int used;
+    public final Graph h;
+    public Color toRender;
 
 
 
@@ -66,9 +66,6 @@ public class Edge {
         if(started) toDraw = used+"/"+capacity;
         if(toRender != null){
             g.setColor(toRender);
-        }
-        else if(end.toRender!= null && end.toRender.equals(start.toRender)){
-            g.setColor(end.toRender);
         }
 
         g.drawChars(toDraw.toCharArray(),0,toDraw.toCharArray().length,(start.x+end.x)/2,(start.y+end.y)/2);
