@@ -27,7 +27,7 @@ public class Tiefenbreitensuche {
 
     static ArrayList<Knoten> stack = new ArrayList<>();
 
-    public static Knoten tiefenSuche(Knoten node, Knoten ziel) {
+    public static Knoten tiefenSuche(Knoten node, Knoten ziel) { //direkt erste Node hier
 
         if (node == ziel) {
 
@@ -41,9 +41,9 @@ public class Tiefenbreitensuche {
             while (!stack.isEmpty()) {
 
                 System.out.println("Der Wert " + node.wert + " wurde besucht!");
-                node = stack.get(stack.size() - 1);
+                node = stack.get(stack.size() - 1); //Neue Node ausgewählt
                 stack.remove(stack.size() - 1);
-                return tiefenSuche(node, ziel);
+                return tiefenSuche(node, ziel); //Tiefensuche für diese Node
             }
         }
         return node;

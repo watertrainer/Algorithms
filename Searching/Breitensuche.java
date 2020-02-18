@@ -27,7 +27,7 @@ public class Breitensuche {
 
     static ArrayList<Knoten> queue = new ArrayList<>();
 
-    public static Knoten breitenSuche(Knoten node, Knoten ziel){
+    public static Knoten breitenSuche(Knoten node, Knoten ziel){ //erste Node wird übergeben
 
         if (node == ziel){
 
@@ -41,7 +41,7 @@ public class Breitensuche {
             while(!queue.isEmpty()){
 
                 System.out.println("Der Wert " + node.wert + " wurde besucht!");
-                node = queue.get(0);
+                node = queue.get(0); //erste Node der Warteschlange wird ausgewählt
 
                 if(node == ziel){
 
