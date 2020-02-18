@@ -43,11 +43,14 @@ public class AStar extends GraphAlgorithm {
         sleep(2000);
         List<Node> bekannt = new ArrayList<Node>();
         Node curr = g.start;
-        for(int i = 0; i < g.nodes.size(); i++)
+        for(int i = 0; i < g.nodes.size(); i++) {
             g.nodes.get(i).cost = Integer.MAX_VALUE;
+            g.nodes.get(i).costWithHeuristic = Integer.MAX_VALUE;
+        }
         curr.cost = 0;
         for(int i = 0; i < curr.edges.size(); i++) {
-            curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
+            curr.edges.get(i).end.costWithHeuristic = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
+            curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity;
             bekannt.add(curr.edges.get(i).end);
             if(visual) {
                 if(select(curr.edges.get(i).end, Color.yellow))
@@ -56,7 +59,7 @@ public class AStar extends GraphAlgorithm {
                     return;
             }
         }
-        bekannt.sort(Comparator.comparingInt(a -> a.cost));
+        bekannt.sort(Comparator.comparingInt(a -> a.costWithHeuristic));
 
 
         while(!bekannt.isEmpty()){g.info.setText("Selecting next Node");
@@ -68,8 +71,8 @@ public class AStar extends GraphAlgorithm {
             }
             curr = bekannt.get(0);
             for(int i = 0; i < curr.edges.size(); i++) {
-                curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-
-                        g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
+                curr.edges.get(i).end.costWithHeuristic = curr.cost + curr.edges.get(i).capacity + (int)Math.sqrt(Math.pow(curr.x-g.end.x, 2)+Math.pow(curr.y-g.end.y, 2));
+                curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity;
                 bekannt.add(curr.edges.get(i).end);
                 if(visual) {
                     if(select(curr.edges.get(i).end, Color.yellow))
@@ -78,7 +81,7 @@ public class AStar extends GraphAlgorithm {
                     if(select(curr.edges.get(i),Color.green))return;
                 }
             }
-            bekannt.sort(Comparator.comparingInt(a -> a.cost));
+            bekannt.sort(Comparator.comparingInt(a -> a.costWithHeuristic));
             bekannt.remove(curr);
             if(visual){
                 if(select(curr,Color.GREEN))

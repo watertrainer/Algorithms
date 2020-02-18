@@ -20,6 +20,7 @@ public class Node {
     public Color toRenderNormal;
     boolean visited;
     public int cost;
+    public int costWithHeuristic;
 
     int origInd;
     public Node(int x, int y, Graph graph){
