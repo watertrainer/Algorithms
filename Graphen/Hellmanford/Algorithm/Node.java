@@ -17,6 +17,7 @@ public class Node {
     @org.jetbrains.annotations.Nullable
     public Color toRender;
 
+    @Nullable
     public Color toRenderNormal;
     boolean visited;
     public int cost;
@@ -42,19 +43,26 @@ public class Node {
 
     public void draw(Graphics g)
     {
+        if(h.aStar.isRunning() || h.dijkstra.isRunning()){
+            String toDraw = cost == Integer.MAX_VALUE ? "\u221e" :String.valueOf(cost);
+            g.setColor(Color.black);
+            g.drawString(toDraw,x,y+20);
+        }
+        else if(h.kruskal.isRunning()){
+            String toDraw = String.valueOf(cost);
+            g.setColor(Color.black);
+            g.drawString(toDraw,x,y+20);
+        }
         if(toRender!=null){
             g.setColor(toRender);
-
         }
         else{
             g.setColor(toRenderNormal);
         }
-        if(h.aStar.isRunning() || h.dijkstra.isRunning()){
-            String toDraw = cost == Integer.MAX_VALUE ? "\u221e" :String.valueOf(cost);
-            g.drawString(toDraw,x,y+20);
-        }
+
         g.fillOval(x-5,y-5,10,10);
         g.setColor(Color.black);
+        g.drawOval(x-5,y-5,10,10);
 
     }
 
@@ -75,6 +83,7 @@ public class Node {
     public void createAugmentedEdges(){
         int si = edges.size();
         for(int i = 0;i<si;i++){
+            edges.get(i).used = 0;
             Edge e = new Edge(edges.get(i).capacity,edges.get(i).end,this,h);
             e.used = e.capacity;
             edges.get(i).end.edges.add(e);

@@ -18,7 +18,8 @@ public class Dijkstra extends GraphAlgorithm {
         //Select starting
         if (visual) {
             g.info.setText("Starting");
-            sleep(1000);
+            if(sleep(1000))
+                return;
         }
         int minx = Integer.MAX_VALUE;
         int maxx = 0;
@@ -42,7 +43,8 @@ public class Dijkstra extends GraphAlgorithm {
         if(visual) {
             g.info.setText("Start and End selected. Starting to calculate the shortest Path");
         }
-        sleep(2000);
+        if(sleep(2000))return;
+        g.end.toRenderNormal = null;
         List<Node> bekannt = new ArrayList<Node>();
         Node curr = g.start;
         for(int i = 0; i < g.nodes.size(); i++)
@@ -69,6 +71,8 @@ public class Dijkstra extends GraphAlgorithm {
                     return;
             }
             curr = bekannt.get(0);
+            if(curr.cost <= g.end.cost)
+                break;
             for(int i = 0; i < curr.edges.size(); i++) {
                 curr.edges.get(i).end.cost = curr.cost + curr.edges.get(i).capacity;
                 bekannt.add(curr.edges.get(i).end);
@@ -89,7 +93,8 @@ public class Dijkstra extends GraphAlgorithm {
         }
         if(visual) {
             g.info.setText("Shortest Path found.");
-            sleep(5000);
+            if(sleep(5000))
+                return;
             g.info.setText("Here it is");
             while (curr!= g.start){
                 for(Edge e:curr.edgeToMe){
@@ -103,7 +108,10 @@ public class Dijkstra extends GraphAlgorithm {
                     }
                 }
             }
-
+            if(sleep(4000))return;
+            g.info.setText("Finished!");
+            if(sleep(2000))return;
+            g.info.setText("");
         }
 
 

@@ -67,15 +67,18 @@ public class Edge {
     public void draw(Graphics g){
 
         String toDraw = String.valueOf(capacity);
-        if(h.ford.isRunning()) toDraw = used+"/"+capacity;
+        if(h.ford.isRunning()) {
+            toDraw = used+"/"+capacity;
+        }
         if(toRender != null){
             g.setColor(toRender);
         }
 
         g.drawChars(toDraw.toCharArray(),0,toDraw.toCharArray().length,(start.x+end.x)/2,(start.y+end.y)/2);
-
-        Arrow.drawArrow((Graphics2D)g,this);
-        g.drawLine(start.x,start.y,end.x,end.y);
+        Graphics2D g2d = (Graphics2D)g;
+        Arrow.drawArrow(g2d,this);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawLine(start.x,start.y,end.x,end.y);
         g.setColor(Color.black);
 
     }

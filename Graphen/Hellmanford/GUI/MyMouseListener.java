@@ -118,6 +118,17 @@ public class MyMouseListener implements MouseListener {
             }
         }
         else{
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (m.strg && !m.aStar.isRunning()) {
+                    for (int i = 0; i < m.nodes.size(); i++) {
+                        if (m.nodes.get(i).clicked(e.getX(), e.getY())) {
+                            m.moveing = m.nodes.get(i);
+                            m.moving = true;
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 

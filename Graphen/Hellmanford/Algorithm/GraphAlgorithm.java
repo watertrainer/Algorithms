@@ -150,6 +150,6 @@ public abstract class GraphAlgorithm implements ActionListener {
             }catch(Exception e){
 
             }
-            }
+        }
     }
 }
